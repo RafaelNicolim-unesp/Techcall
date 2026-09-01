@@ -1,21 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import NewCallScreen from './src/NewCallScreen';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import CallListScreen from './src/screens/CallListScreen';
+import NewCallScreen from './src/screens/NewCallScreen';
+import CallDetailScreen from './src/screens/CallDetailScreen';
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <StatusBar style="auto" />
-      <NewCallScreen/>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="CallList">
+        <Stack.Screen
+          name="CallList"
+          component={CallListScreen}
+          options={{ title: 'Meus Chamados' }}
+        />
+        <Stack.Screen
+          name="NewCall"
+          component={NewCallScreen}
+          options={{ title: 'Novo Chamado' }}
+        />
+        <Stack.Screen
+          name="CallDetail"
+          component={CallDetailScreen}
+          options={{ title: 'Detalhes do Chamado' }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
